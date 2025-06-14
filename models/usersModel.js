@@ -2,36 +2,33 @@ import { Sequelize } from "sequelize";
 import db from "../config/database.js";
  
 const { DataTypes } = Sequelize;
- 
-const LoftData = db.define('lofts',{
-    loftId:{
+
+const UserData = db.define('users',{
+    userId:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     companyId:{
-        type: DataTypes.INTEGER,
-    },
-    name:{
-        type: DataTypes.STRING
-    },
-    address:{
-        type: DataTypes.STRING
-    },
-    size:{
         type: DataTypes.INTEGER
     },
-    guestCountMax:{
-        type: DataTypes.INTEGER
+    username:{
+        type: DataTypes.STRING
     },
-    valid:{
+    password:{
+        type: DataTypes.STRING
+    },
+    email:{
+        type: DataTypes.STRING
+    },
+    role:{
+        type: DataTypes.STRING
+    },
+    description:{
+        type: DataTypes.STRING
+    },
+    main: {
         type: DataTypes.BOOLEAN
-    },
-    type:{
-        type: DataTypes.STRING
-    },
-    typetext:{
-        type: DataTypes.STRING
     },
     createdAt:{
         type: DataTypes.DATE
@@ -44,4 +41,4 @@ const LoftData = db.define('lofts',{
     freezeTableName: true
 });
  
-export default LoftData;
+export default UserData;

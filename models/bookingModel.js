@@ -2,46 +2,38 @@ import { Sequelize } from "sequelize";
 import db from "../config/database.js";
  
 const { DataTypes } = Sequelize;
- 
-const LoftData = db.define('lofts',{
-    loftId:{
+
+const Booking = db.define('bookings',{
+    bookingId:{
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
     },
     companyId:{
-        type: DataTypes.INTEGER,
-    },
-    name:{
-        type: DataTypes.STRING
-    },
-    address:{
-        type: DataTypes.STRING
-    },
-    size:{
         type: DataTypes.INTEGER
     },
-    guestCountMax:{
+    loftId:{
         type: DataTypes.INTEGER
     },
-    valid:{
-        type: DataTypes.BOOLEAN
-    },
-    type:{
+    loftName:{
         type: DataTypes.STRING
     },
-    typetext:{
+    client:{
         type: DataTypes.STRING
+    },
+    startDate:{
+        type: DataTypes.DATE
+    },
+    endDate:{
+        type: DataTypes.DATE
     },
     createdAt:{
         type: DataTypes.DATE
     },
     updatedAt:{
         type: DataTypes.DATE
-    }
-
+    },
 },{
     freezeTableName: true
 });
  
-export default LoftData;
+export default Booking;

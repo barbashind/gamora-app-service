@@ -2,35 +2,28 @@ import { Sequelize } from "sequelize";
 import db from "../config/database.js";
  
 const { DataTypes } = Sequelize;
- 
-const LoftData = db.define('lofts',{
-    loftId:{
+
+const Images = db.define('images',{
+    documentId:{
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
     },
-    companyId:{
-        type: DataTypes.INTEGER,
-    },
-    name:{
-        type: DataTypes.STRING
-    },
-    address:{
-        type: DataTypes.STRING
-    },
-    size:{
+    loftId:{
         type: DataTypes.INTEGER
     },
-    guestCountMax:{
-        type: DataTypes.INTEGER
-    },
-    valid:{
-        type: DataTypes.BOOLEAN
-    },
-    type:{
+    fileName:{
         type: DataTypes.STRING
     },
-    typetext:{
+    fileMimeType:{
+        type: DataTypes.STRING
+    },
+    fileSize:{
+        type: DataTypes.STRING
+    },
+    fileExtension:{
+        type: DataTypes.STRING
+    },
+    path:{
         type: DataTypes.STRING
     },
     createdAt:{
@@ -38,10 +31,9 @@ const LoftData = db.define('lofts',{
     },
     updatedAt:{
         type: DataTypes.DATE
-    }
-
+    },
 },{
     freezeTableName: true
 });
  
-export default LoftData;
+export default Images;
