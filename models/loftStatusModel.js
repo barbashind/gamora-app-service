@@ -3,7 +3,7 @@ import db from "../config/database.js";
  
 const { DataTypes } = Sequelize;
  
-const LoftData = db.define('lofts',{
+const LoftStatus = db.define('lofts',{
     loftId:{
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -12,27 +12,24 @@ const LoftData = db.define('lofts',{
     companyId:{
         type: DataTypes.INTEGER,
     },
-    name:{
-        type: DataTypes.STRING
+    commonData:{
+        type: DataTypes.BOOLEAN
     },
-    address:{
-        type: DataTypes.STRING
+    mediaData:{
+        type: DataTypes.BOOLEAN
     },
-    size:{
-        type: DataTypes.INTEGER
+    timepriceData:{
+        type: DataTypes.BOOLEAN
     },
-    guestCountMax:{
-        type: DataTypes.INTEGER
+    equipmentData:{
+        type: DataTypes.BOOLEAN
+    },
+    serviceData:{
+        type: DataTypes.BOOLEAN
     },
     valid:{
         type: DataTypes.BOOLEAN
-    },
-    type:{
-        type: DataTypes.STRING
-    },
-    typetext:{
-        type: DataTypes.STRING
-    },
+    },    
     createdAt:{
         type: DataTypes.DATE
     },
@@ -44,4 +41,4 @@ const LoftData = db.define('lofts',{
     freezeTableName: true
 });
  
-export default LoftData;
+export default LoftStatus;

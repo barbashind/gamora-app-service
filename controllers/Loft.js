@@ -1,4 +1,4 @@
-import LoftData from "../models/loftNamagmentModel.js";
+import LoftData from "../models/loftMamagmentModel.js";
  
 export const getLoft = async (req, res) => {
     try {
@@ -69,7 +69,7 @@ export const loftsFilter = async (req, res) => {
 export const createLoft = async (req, res) => {
     try {
 
-        const { name, type, size, address, guestCountMax } = req.body;
+        const { name, type, size, address, guestCountMax, loftDescription } = req.body;
 
         const user = req.user;
 
@@ -106,6 +106,12 @@ export const createLoft = async (req, res) => {
             errors.push({
                 message: "Укажите число гостей",
                 field: "guestCountMax"
+            });
+        }
+        if (!loftDescription) {
+            errors.push({
+                message: "Введите описание лофта",
+                field: "loftDescription"
             });
         }
 

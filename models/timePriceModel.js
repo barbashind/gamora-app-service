@@ -3,31 +3,26 @@ import db from "../config/database.js";
  
 const { DataTypes } = Sequelize;
 
-const Images = db.define('images',{
-    documentId:{
+const TimePrice = db.define('loft_timeprice',{
+    timepriceId :{
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true
     },
     loftId:{
         type: DataTypes.INTEGER
     },
-    mainImage:{
-        type: DataTypes.BOOLEAN
-    },
-    fileName:{
+    weekDay:{
         type: DataTypes.STRING
     },
-    fileMimeType:{
+    timeStart:{
         type: DataTypes.STRING
     },
-    fileSize:{
+    timeEnd:{
         type: DataTypes.STRING
     },
-    fileExtension:{
-        type: DataTypes.STRING
-    },
-    path:{
-        type: DataTypes.STRING
+    price:{
+        type: DataTypes.INTEGER
     },
     createdAt:{
         type: DataTypes.DATE
@@ -39,4 +34,4 @@ const Images = db.define('images',{
     freezeTableName: true
 });
  
-export default Images;
+export default TimePrice;
