@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import cors from 'cors';
 import Autority from "./models/aurorityModel.js";
+import './controllers/pingConnections.js'
  
 const app = express();
 const port = 5003;
@@ -25,7 +26,7 @@ app.use(express.json());
 app.use('/', router);
 
 // Авторизация пользователя
-app.post('/api/gamora/login', async (req, res) => {
+app.post('/api/ufch/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -47,7 +48,7 @@ app.post('/api/gamora/login', async (req, res) => {
   }
 });
 
-app.get('/api/gamora/check-token', (req, res) => {
+app.get('/api/ufch/check-token', (req, res) => {
     const token = req.headers['authorization']?.split(' ')[1]; // Извлечение токена из заголовка
 
     if (!token) {
@@ -62,7 +63,7 @@ app.get('/api/gamora/check-token', (req, res) => {
     });
 });
 
-app.get('/api/gamora/get-user-info', async (req, res) => {
+app.get('/api/ufch/get-user-info', async (req, res) => {
     const token = req.headers['authorization']?.split(' ')[1]; // Извлечение токена из заголовка
 
     if (!token) {

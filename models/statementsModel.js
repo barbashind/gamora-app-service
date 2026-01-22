@@ -2,41 +2,37 @@ import { Sequelize } from "sequelize";
 import db from "../config/database.js";
  
 const { DataTypes } = Sequelize;
-
-const Images = db.define('images',{
-    documentId:{
+ 
+export const Visitors = db.define('visitors',{
+    
+    id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true
     },
-    loftId:{
-        type: DataTypes.INTEGER
-    },
-    mainImage:{
-        type: DataTypes.BOOLEAN
-    },
-    fileName:{
+    name:{
         type: DataTypes.STRING
     },
-    fileMimeType:{
+    post:{
         type: DataTypes.STRING
     },
-    fileSize:{
+    depart:{
         type: DataTypes.STRING
     },
-    fileExtension:{
+    type:{
         type: DataTypes.STRING
     },
-    path:{
+    gate:{
         type: DataTypes.STRING
     },
-    createdAt:{
-        type: DataTypes.DATE
+    time:{
+        type: DataTypes.STRING
     },
-    updatedAt:{
-        type: DataTypes.DATE
+    date:{
+        type: DataTypes.STRING
     },
 },{
     freezeTableName: true
 });
- 
-export default Images;
+
+

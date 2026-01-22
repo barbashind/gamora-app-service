@@ -2,43 +2,46 @@ import { Sequelize } from "sequelize";
 import db from "../config/database.js";
  
 const { DataTypes } = Sequelize;
-
-const UserData = db.define('users',{
-    userId:{
+ 
+const GateData = db.define('gates',{
+    gateId:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
+    faceregId:{
+        type: DataTypes.INTEGER
+    },
+    name:{
+        type: DataTypes.STRING
+    },
+    IPaddress:{
+        type: DataTypes.STRING
+    },
     companyId:{
         type: DataTypes.INTEGER
     },
-    username:{
+    objectId:{
+        type: DataTypes.INTEGER
+    },
+    objectName:{
         type: DataTypes.STRING
     },
-    password:{
-        type: DataTypes.STRING
+    placeId:{
+        type: DataTypes.INTEGER
     },
-    email:{
+    place:{
         type: DataTypes.STRING
-    },
-    role:{
-        type: DataTypes.STRING
-    },
-    description:{
-        type: DataTypes.STRING
-    },
-    main: {
-        type: DataTypes.BOOLEAN
     },
     createdAt:{
         type: DataTypes.DATE
     },
     updatedAt:{
         type: DataTypes.DATE
-    }
+    },
 
 },{
     freezeTableName: true
 });
  
-export default UserData;
+export default GateData;

@@ -2,36 +2,31 @@ import { Sequelize } from "sequelize";
 import db from "../config/database.js";
  
 const { DataTypes } = Sequelize;
-
-const TimePrice = db.define('loft_timeprice',{
-    timepriceId :{
+ 
+const Connection = db.define('connections',{
+    connectionId:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    loftId:{
-        type: DataTypes.INTEGER
+    pointId:{
+        type: DataTypes.INTEGER,
     },
-    weekDay:{
-        type: DataTypes.STRING
+    time:{
+        type: DataTypes.INTEGER,
     },
-    timeStart:{
-        type: DataTypes.STRING
-    },
-    timeEnd:{
-        type: DataTypes.STRING
-    },
-    price:{
-        type: DataTypes.INTEGER
+    losses:{
+        type: DataTypes.INTEGER,
     },
     createdAt:{
         type: DataTypes.DATE
     },
     updatedAt:{
         type: DataTypes.DATE
-    },
+    }
+
 },{
     freezeTableName: true
 });
  
-export default TimePrice;
+export default Connection;

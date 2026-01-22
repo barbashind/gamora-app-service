@@ -3,36 +3,27 @@ import db from "../config/database.js";
  
 const { DataTypes } = Sequelize;
  
-const CompanyData = db.define('organizations',{
-    companyId:{
+const PlaceData = db.define('places',{
+    placeId:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    companyName:{
+    name:{
         type: DataTypes.STRING
     },
-    shortName:{
-        type: DataTypes.STRING
-    },
-    address:{
-        type: DataTypes.STRING
-    },
-    inn:{
-        type: DataTypes.STRING
-    },
-    contact:{
-        type: DataTypes.STRING
+    objectId:{
+        type: DataTypes.INTEGER
     },
     createdAt:{
         type: DataTypes.DATE
     },
     updatedAt:{
         type: DataTypes.DATE
-    }
+    },
 
 },{
     freezeTableName: true
 });
  
-export default CompanyData;
+export default PlaceData;

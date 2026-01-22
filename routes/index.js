@@ -1,13 +1,9 @@
 import express from "express";
 import jwt from 'jsonwebtoken';
-import multer from "multer";
-import { getCompanyData, getUsersData, updateCompanyData, updateUsersData } from "../controllers/Organization.js";
-import { deleteEquipment, deleteFurniture, deleteService, getEquipment, getFurniture, getLoftTypes, getServices, updateEquipment, updateFurniture, updateServices } from "../controllers/DataLists.js";
-import { createLoft, getLoft, loftsFilter, updateLoft } from "../controllers/Loft.js";
-import { deleteImageById, getImageById, getImagesByLoftId, getMainImageByLoftId, uploadFile, uploadMainFile } from "../controllers/UploadImages.js";
-import { getBookingToday } from "../controllers/Booking.js";
-import { getTimePrice, updateTimePrices } from "../controllers/TimePrice.js";
-import { getLoftStatus, updateLoftStatus } from "../controllers/LoftStatus.js";
+import { getCompanies, getProjects } from "../controllers/IntegrationMS.js";
+import { getAllGates, getObjects, getPlaces } from "../controllers/Gates.js";
+import { createPoint, deletePoint, getAllPoints, getPointById, getTestsById, getTestsDayById, getTestsHourById, getTestsMonthById, pointsFilter, updatePoint } from "../controllers/Monitoring.js";
+import { deleteUser, getAllUsers, updateUsers } from "../controllers/Settings.js";
  
 const router = express.Router();
 
@@ -28,49 +24,27 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
-router.get('/api/gamora/company-data', authenticateToken, getCompanyData);
-router.post('/api/gamora/company-data-update', authenticateToken, updateCompanyData);
+router.get('/api/ufch/companies', authenticateToken, getCompanies);
+router.get('/api/ufch/projects', authenticateToken, getProjects);
+router.get('/api/ufch/objects', authenticateToken, getObjects);
+router.get('/api/ufch/places', authenticateToken, getPlaces);
+router.get('/api/ufch/gates', authenticateToken, getAllGates);
 
-router.get('/api/gamora/users-data', authenticateToken, getUsersData);
-router.post('/api/gamora/user-data-update/:userId', authenticateToken, updateUsersData);
+router.post('/api/ufch/monitoring/filter', authenticateToken, pointsFilter);
+router.get('/api/ufch/monitoring/:pointId', authenticateToken, getPointById);
+router.get('/api/ufch/monitoring-all', authenticateToken, getAllPoints);
 
-router.get('/api/gamora/loft-types', authenticateToken, getLoftTypes);
-router.get('/api/gamora/services-list', authenticateToken, getServices);
-router.get('/api/gamora/furniture-list', authenticateToken, getFurniture);
-router.get('/api/gamora/equipment-list', authenticateToken, getEquipment);
-router.post('/api/gamora/services-list/update', authenticateToken, updateServices);
-router.post('/api/gamora/furniture-list/update', authenticateToken, updateFurniture);
-router.post('/api/gamora/equipment-list/update', authenticateToken, updateEquipment);
+router.post('/api/ufch/create-point', authenticateToken, createPoint);
+router.post('/api/ufch/update-point/:pointId', authenticateToken, updatePoint);
+router.delete('/api/ufch/delete-point/:pointId', authenticateToken, deletePoint);
 
-// Удаление услуги
-router.delete('/api/gamora/services-list/delete/:serviceCode', authenticateToken, deleteService);
+router.get('/api/ufch/tests/:pointId', authenticateToken, getTestsById);
+router.get('/api/ufch/tests-hour/:pointId', authenticateToken, getTestsHourById);
+router.get('/api/ufch/tests-day/:pointId', authenticateToken, getTestsDayById);
+router.get('/api/ufch/tests-month/:pointId', authenticateToken, getTestsMonthById);
 
-// Удаление мебели
-router.delete('/api/gamora/furniture-list/delete/:furnitureCode', authenticateToken, deleteFurniture);
-
-// Удаление оборудования
-router.delete('/api/gamora/equipment-list/delete/:equipmentCode', authenticateToken, deleteEquipment);
-
-router.get('/api/gamora/loft/:loftId', authenticateToken, getLoft);
-router.post('/api/gamora/loft-create/new', authenticateToken, createLoft);
-router.post('/api/gamora/loft-update/:loftId', authenticateToken, updateLoft);
-router.post('/api/gamora/lofts/filter', authenticateToken, loftsFilter);
-
-router.get('/api/gamora/loft-status/:loftId', authenticateToken, getLoftStatus);
-router.post('/api/gamora/loft-status-update/:loftId', authenticateToken, updateLoftStatus);
-
-router.post('/api/gamora/upload-image/:loftId', authenticateToken, uploadFile);
-router.post('/api/gamora/upload-image-main/:loftId', authenticateToken, uploadMainFile);
-router.get('/api/gamora/loft-images/:loftId', authenticateToken, getImagesByLoftId);
-router.get('/api/gamora/loft-image-main/:loftId', authenticateToken, getMainImageByLoftId);
-router.get('/api/gamora/loft-image/:documentId', authenticateToken, getImageById);
-router.delete('/api/gamora/delete-loft-image/:documentId', authenticateToken, deleteImageById);
-
-router.post('/api/gamora/update-time-price/:loftId', authenticateToken, updateTimePrices);
-router.get('/api/gamora/time-price/:loftId', authenticateToken, getTimePrice);
-
-router.get('/api/gamora/bookings-today', authenticateToken, getBookingToday);
-
-
+router.get('/api/ufch/users/all', authenticateToken, getAllUsers);
+router.post('/api/ufch/update-users', authenticateToken, updateUsers);
+router.delete('/api/ufch/delete-user/:id', authenticateToken, deleteUser);
 
 export default router;

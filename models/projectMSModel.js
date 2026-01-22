@@ -2,29 +2,18 @@ import { Sequelize } from "sequelize";
 import db from "../config/database.js";
  
 const { DataTypes } = Sequelize;
-
-const Booking = db.define('bookings',{
-    bookingId:{
+ 
+const ProjectMSData = db.define('projectsMS',{
+    id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true
     },
-    companyId:{
-        type: DataTypes.INTEGER
+    projectId:{
+        type: DataTypes.INTEGER,
     },
-    loftId:{
-        type: DataTypes.INTEGER
-    },
-    loftName:{
+    name:{
         type: DataTypes.STRING
-    },
-    client:{
-        type: DataTypes.STRING
-    },
-    startDate:{
-        type: DataTypes.DATE
-    },
-    endDate:{
-        type: DataTypes.DATE
     },
     createdAt:{
         type: DataTypes.DATE
@@ -32,8 +21,9 @@ const Booking = db.define('bookings',{
     updatedAt:{
         type: DataTypes.DATE
     },
+
 },{
     freezeTableName: true
 });
  
-export default Booking;
+export default ProjectMSData;
