@@ -1,9 +1,9 @@
 import { Sequelize } from "sequelize";
 
-const db = new Sequelize('ufch_db', 'ufch', 'Swede9Careers|Hooker', {
-    host: "10.100.60.90",
+const db = new Sequelize('ufch_db', 'admin', 'PPn98bLcrUw5', {
+    host: "10.131.0.9",
     dialect: "mysql",
-    port: 3306,
+    port: 5432,
 });
  
 export default db;

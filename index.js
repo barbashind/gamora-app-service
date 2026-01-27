@@ -8,7 +8,7 @@ import Autority from "./models/aurorityModel.js";
 import './controllers/pingConnections.js'
  
 const app = express();
-const port = 5003;
+const port = 5004;
 
 app.get('/', (req, res) => {
   res.send('Home Route');
