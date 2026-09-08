@@ -29,39 +29,53 @@ const updateOldestRecords = async (pointId, time, losses) => {
 
 const checkConnection = async (pointId, ip) => {
     try {
-        const res = await ping.promise.probe(ip);
-        const connectionStatus = res.alive;
-
         const results = await Promise.all(Array.from({ length: 10 }, () => ping.promise.probe(ip)));
-        // const time = results.reduce((acc, res) => acc + res.time, 0) / 10;
-        // const losses = results.filter(res => !res.alive).length;
+        
+        // Вычисляем среднее только по успешным пингам
+        const successful = results.filter(res => res.alive === true);
+        let avgTime = 0;
+        if (successful.length > 0) {
+            const totalTime = successful.reduce((acc, res) => acc + res.time, 0);
+            avgTime = totalTime / successful.length;
+        } else {
+            avgTime = 0; // все пинги упали
+        }
 
-        await updateOldestRecords(pointId, (results.reduce((acc, res) => acc + res.time, 0) / 10), (results.filter(res => !res.alive).length));
-        const current = Monitoring.findOne({where: {pointId: pointId}})
+        const losses = results.filter(res => !res.alive).length;
+
+        await updateOldestRecords(pointId, avgTime, losses);
+
+        // Исправляем: await для findOne
+        const current = await Monitoring.findOne({where: {pointId: pointId}});
 
         await Monitoring.update(
-            { connecting:  (results.reduce((acc, res) => acc + res.time, 0) / 10)},
+            { connecting: avgTime },
             { where: { pointId: pointId } }
         );
 
-        if (!connectionStatus && current.connecting === false) {
-            // const email = current.responsible; // Предполагается, что email хранится в таблице Monitoring
-            // const name = current.name; // Предполагается, что имя точки прохода хранится в таблице Monitoring
-
-            // // Отправка письма
-            // await sendEmail(email, name);
+        // Проверка на полную потерю связи: если все пинги упали (losses === 10) или avgTime === 0
+        // if (losses === 10) {
+        //     // Отправка письма (закомментировано)
+        //     // await sendEmail(email, name);
             
-
-            // Обновляем статус на "NOT_WORK"
-            await Monitoring.update(
-                { status: 'NOT_WORK' },
-                { where: { pointId } }
-            );
-
-        }
+        //     // Обновляем статус на "NOT_WORK"
+        //     await Monitoring.update(
+        //         { status: 'NOT_WORK' },
+        //         { where: { pointId } }
+        //     );
+        // }
         
     } catch (error) {
         console.error(`Error checking connection for pointId ${pointId}:`, error);
+        // При ошибке записываем 0
+        try {
+            await Monitoring.update(
+                { connecting: 0 },
+                { where: { pointId: pointId } }
+            );
+        } catch (updateError) {
+            console.error(`Failed to update connecting to 0 for pointId ${pointId}:`, updateError);
+        }
     }
 };
 
